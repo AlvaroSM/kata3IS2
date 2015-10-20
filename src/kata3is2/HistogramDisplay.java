@@ -12,8 +12,11 @@ import java.awt.*;
 
 public class HistogramDisplay extends ApplicationFrame {
 
-    public HistogramDisplay() {
+    private final Histogram<String> histogram;
+
+    public HistogramDisplay(Histogram<String> histogram) {
         super("Histogram");
+        this.histogram = histogram;
         setContentPane(createPanel());
         pack();
     }
@@ -32,10 +35,8 @@ public class HistogramDisplay extends ApplicationFrame {
 
     private DefaultCategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(10, "", "gmail.com");
-        dataset.addValue(24, "", "hotmail.com");
-        dataset.addValue(4, "", "outlook.com");
-        dataset.addValue(8, "", "ulpgc.com");
+        for (String key : histogram.keySet())
+            dataset.addValue(histogram.get(key), "", key);
         return dataset;
     }
 
@@ -43,4 +44,5 @@ public class HistogramDisplay extends ApplicationFrame {
     public void execute() {
         setVisible(true);
     }
+
 }
